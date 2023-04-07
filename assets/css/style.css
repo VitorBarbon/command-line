@@ -75,6 +75,7 @@ main {
 .container .c-input input {
   position: inherit;
   padding: 16px;
+  padding-right: 110px;
   padding-left: 48px;
   width: 100%;
   color: var(--primaryColor);
@@ -94,7 +95,15 @@ main {
   color: var(--inputTextColor);
 }
 
-
+.container .c-input span {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  color: var(--inputTextColor);
+  font-family: var(--font);
+  font-size: 20px;
+  font-weight: 400;
+}
 
 .container .c-input img.magnifying-glass {
   position: absolute;

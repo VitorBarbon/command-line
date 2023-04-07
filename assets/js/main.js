@@ -2,8 +2,8 @@
   const input = document.querySelector('input')
   const divCommands = document.querySelector('.commands')
   const commands = [
-    {command: 'Light theme', image: './assets/images/brush-solid.svg'},
-    {command: 'Dark theme', image: './assets/images/brush-solid.svg'},
+    {command: 'Tema claro', image: './assets/images/brush-solid.svg'},
+    {command: 'Tema escuro', image: './assets/images/brush-solid.svg'},
     {command: 'Comando 3', image: './assets/images/gear-solid.svg'},
     {command: 'Comando 4', image: './assets/images/gear-solid.svg'},
     {command: 'Comando 5', image: './assets/images/gear-solid.svg'},
@@ -15,6 +15,13 @@
   ]
   addEventFocus(input, divCommands, commands)
   removeStyleEventFocus(input, divCommands)
+  document.addEventListener('keyup', (event) =>  {
+    if(event.ctrlKey && event.code === 'keyQ') {
+      console.log('aqui')
+    } 
+      
+    console.log(event)
+  })
 })()
 
 function addEventFocus(input, divCommands, commands) {
@@ -25,8 +32,9 @@ function addEventFocus(input, divCommands, commands) {
       
       if(input.value === '') {
         commands.map((obj) => {
+          const classHtml = obj.command.toLowerCase().replace(' ', '-')
           divCommands.innerHTML += `
-            <li class="item ${obj.command.toLowerCase().replace(' ', '-')}"><img src="${obj.image}" class="item-icon"><p class="item-text">${obj.command}</p></li>
+            <li class="item ${classHtml}"><img src="${obj.image}" class="item-icon ${classHtml}"><p class="item-text ${classHtml}">${obj.command}</p></li>
           `
         })
       }
@@ -39,8 +47,9 @@ function addEventFocus(input, divCommands, commands) {
         })
 
         filterCommands.map((obj) => {
+          const classHtml = obj.command.toLowerCase().replace(' ', '-')
           divCommands.innerHTML += `
-            <li class="item ${obj.command.replace(' ', '-')}"><img src="${obj.image}" class="item-icon"><p class="item-text">${obj.command}</p></li>
+            <li class="item ${classHtml}"><img src="${obj.image}" class="item-icon ${classHtml}"><p class="item-text ${classHtml}">${obj.command}</p></li>
           `
         })
         if(filterCommands.length === 0) divCommands.innerHTML = '<li class="item not-found"><p class="item-text">Nenhum comando foi encontrado para esse filtro</p></li>'
@@ -64,6 +73,15 @@ function removeStyleEventFocus(input, divCommands) {
       input.classList.remove('input-focus')
       divCommands.innerHTML = ''
       divCommands.style.visibility = 'hidden'
+    }
+
+    if(element.classList.contains('tema-claro')) {
+      document.querySelector('html').classList.remove('dark')
+      document.querySelector('html').classList.add('light')
+    }
+    if(element.classList.contains('tema-escuro')) {
+      document.querySelector('html').classList.remove('light')
+      document.querySelector('html').classList.add('dark')
     }
   })
 }
